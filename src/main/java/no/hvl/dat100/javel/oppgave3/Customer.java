@@ -2,7 +2,6 @@ package no.hvl.dat100.javel.oppgave3;
 
 public class Customer {
 
-    // TODO - object variables (attributes)
     // a) Objektvariabler
 
     private String name;
