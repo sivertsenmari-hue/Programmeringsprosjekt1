@@ -7,14 +7,29 @@ public class MonthlyPower {
     // a) print power usage for a month
     public static void print_PowerUsage(double[][] usage) {
 
-        // TODO
+
+        for (double[] dag : usage){
+
+            for (double tall : dag) {
+            System.out.printf("%.2f kWh ", tall);
+
+            }
+        System.out.println();
+        }
 
     }
 
     // b) print power prices for a month
     public static void print_PowerPrices(double[][] prices) {
 
-        // TODO
+        for (double[] dag : prices){
+
+            for (double tall : dag){
+                System.out.printf("%.2f NOK ", tall);
+            }
+
+            System.out.println();
+        }
 
     }
 
@@ -23,7 +38,11 @@ public class MonthlyPower {
 
         double sum = 0;
 
-        // TODO
+        for (int i = 0; i < usage.length; i++){
+            for(int j = 0; j < usage[i].length; j++){
+                sum = sum + usage[i][j];
+            }
+        }
 
         return sum;
     }
@@ -33,8 +52,24 @@ public class MonthlyPower {
 
         boolean exceeded = false;
         double usage = 0;
+        int i = 0;
+        int j = 0;
 
-        // TODO
+        while (i < powerusage.length && !exceeded){
+
+            j = 0;
+
+            while (j < powerusage[i].length && !exceeded){
+                usage = usage + powerusage[i][j];
+
+                if (usage > threshold){
+                    exceeded = true;
+                }
+                j++;
+
+            }
+            i++;
+        }
 
         return exceeded;
     }
@@ -44,27 +79,48 @@ public class MonthlyPower {
 
         double price = 0;
 
-        // TODO
+        for (int i = 0; i < usage.length; i++){
+            for (int j = 0; j < usage[i].length; j++){
+                price = price + (usage[i][j] * prices[i][j]);
+            }
+        }
 
         return price;
     }
 
     // f) power support for the month
+
+    private static final double THRESHOLD = 0.9375;
+    private static final double PERCENTAGE = 0.9;
+
     public static double computePowerSupport(double[][] usage, double[][] prices) {
 
         double support = 0;
 
-        // TODO
+        for (int i = 0; i < usage.length; i++){
+            for (int j = 0; j < usage[i].length; j++){
+                if (prices[i][j] > THRESHOLD){
+                    support = support + ((prices[i][j] - THRESHOLD) * PERCENTAGE * usage[i][j]);
+                }
+
+            }
+        }
 
         return support;
     }
 
     // g) Norgesprice for the month
+    private static final double NORGESPRIS_KWH = 0.5;
+
     public static double computeNorgesPrice(double[][] usage) {
 
         double price = 0;
 
-        // TODO
+        for (int i = 0; i < usage.length; i++){
+            for (int j = 0; j < usage[i].length; j++){
+                price = price + (usage[i][j] * NORGESPRIS_KWH);
+            }
+        }
 
         return price;
     }

@@ -9,6 +9,7 @@ public class DailyPower {
             System.out.printf("%.2f NOK", tall);
             System.out.print(" ");
         }
+        System.out.println();
 
     }
 
@@ -54,11 +55,13 @@ public class DailyPower {
     private static final double THRESHOLD = 0.9375;
     private static final double PERCENTAGE = 0.9;
 
-    private static double getSupport(double usage, double price) {
+    public static double getSupport(double usage, double price) {
 
         double support = 0;
 
-        // TODO
+            if (usage > THRESHOLD){
+                support = (price - THRESHOLD) * PERCENTAGE * usage;
+            }
 
         return support;
     }
@@ -68,7 +71,14 @@ public class DailyPower {
 
         double support = 0;
 
-        // TODO
+        double hourSupport = 0;
+
+        for (int i = 0; i < usage.length; i++){
+            if (prices[i] > THRESHOLD){
+                hourSupport = (prices[i] - THRESHOLD) * PERCENTAGE * usage[i];
+                support = support + hourSupport;
+            }
+        }
 
         return support;
     }
@@ -80,7 +90,9 @@ public class DailyPower {
 
         double price = 0;
 
-        // TODO
+        for (int i = 0; i < usage.length; i++){
+            price = price + (usage[i] * NORGESPRIS_KWH);
+        }
 
         return price;
     }
@@ -90,7 +102,11 @@ public class DailyPower {
 
         double temp_max = 0;
 
-        // TODO
+        for (int i = 0; i < usage.length; i++){
+            if (usage[i] > temp_max){
+                temp_max = usage[i];
+            }
+        }
 
         return temp_max;
     }
@@ -98,8 +114,13 @@ public class DailyPower {
     public static double findAvgPower(double[] usage) {
 
         double average = 0;
+        double total = 0;
 
-        // TODO
+        for (int i = 0; i < usage.length; i++){
+            total = total + usage[i];
+        }
+
+        average = total / usage.length;
 
         return average;
     }
